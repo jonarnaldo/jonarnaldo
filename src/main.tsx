@@ -192,8 +192,8 @@ function App() {
               <span className="status-dot" /> Frontend software engineer
             </p>
             <h1>
-              I build <strong>high-leverage</strong> interfaces for complex
-              products.
+              I design interfaces <strong>engineered</strong> to feel
+              effortless.
             </h1>
             <p className="hero-lede">
               10+ years building high-scale, AI-native interfaces specializing
