@@ -1,6 +1,25 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { TopoField } from "./TopoField";
 import "./styles.css";
+
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting),
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, className: `reveal${visible ? " reveal-visible" : ""}` };
+}
 
 const Arrow = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -142,6 +161,13 @@ const skillGroups = [
 ];
 
 function App() {
+  const approachReveal = useReveal<HTMLDivElement>();
+  const skillsReveal = useReveal<HTMLElement>();
+  const experienceReveal = useReveal<HTMLElement>();
+  const aboutReveal = useReveal<HTMLDivElement>();
+  const passionsReveal = useReveal<HTMLElement>();
+  const contactReveal = useReveal<HTMLDivElement>();
+
   return (
     <div className="site-shell">
       <header className="nav">
@@ -160,6 +186,7 @@ function App() {
 
       <main id="top">
         <section className="hero hero-dark section-pad">
+          <TopoField className="hero-topo" />
           <div className="hero-copy">
             <p className="kicker">
               <span className="status-dot" /> Frontend software engineer
@@ -200,7 +227,10 @@ function App() {
         </section>
 
         <section id="approach" className="dark-section">
-          <div className="section-pad">
+          <div
+            ref={approachReveal.ref}
+            className={`section-pad ${approachReveal.className}`}
+          >
             <div className="section-heading light">
               <p className="section-number">01 / How I build</p>
               <h2>
@@ -250,7 +280,10 @@ function App() {
           </div>
         </section>
 
-        <section className="section-pad skills-section">
+        <section
+          ref={skillsReveal.ref}
+          className={`section-pad skills-section ${skillsReveal.className}`}
+        >
           <div className="section-heading">
             <p className="section-number">02 / Technical toolkit</p>
             <h2>
@@ -271,7 +304,11 @@ function App() {
           </div>
         </section>
 
-        <section id="experience" className="section-pad experience-section">
+        <section
+          id="experience"
+          ref={experienceReveal.ref}
+          className={`section-pad experience-section ${experienceReveal.className}`}
+        >
           <div className="section-heading">
             <p className="section-number">03 / Experience</p>
             <h2>
@@ -307,7 +344,10 @@ function App() {
         </section>
 
         <section id="about" className="about-section">
-          <div className="section-pad about-grid">
+          <div
+            ref={aboutReveal.ref}
+            className={`section-pad about-grid ${aboutReveal.className}`}
+          >
             <div>
               <p className="section-number">04 / About</p>
               <h2>
@@ -341,7 +381,10 @@ function App() {
           </div>
         </section>
 
-        <section className="passions section-pad">
+        <section
+          ref={passionsReveal.ref}
+          className={`passions section-pad ${passionsReveal.className}`}
+        >
           <div className="section-heading">
             <p className="section-number">05 / Outside the job description</p>
             <h2>
@@ -385,7 +428,10 @@ function App() {
         </section>
 
         <section className="contact-section">
-          <div className="section-pad contact-inner">
+          <div
+            ref={contactReveal.ref}
+            className={`section-pad contact-inner ${contactReveal.className}`}
+          >
             <p className="section-number">06 / Contact</p>
             <h2>
               Let's build something <em>excellent.</em>

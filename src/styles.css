@@ -575,10 +575,18 @@ em {
   border-right: 0;
   margin-right: 0;
 }
-.principles > div:nth-child(1) { --accent-1: #58c7f5; }
-.principles > div:nth-child(2) { --accent-1: #39d7c3; }
-.principles > div:nth-child(3) { --accent-1: #a894ef; }
-.principles > div:nth-child(4) { --accent-1: #ffb75e; }
+.principles > div:nth-child(1) {
+  --accent-1: #58c7f5;
+}
+.principles > div:nth-child(2) {
+  --accent-1: #39d7c3;
+}
+.principles > div:nth-child(3) {
+  --accent-1: #a894ef;
+}
+.principles > div:nth-child(4) {
+  --accent-1: #ffb75e;
+}
 .principles span {
   font: var(--fs-sm) var(--font-mono);
   color: var(--accent-1);
@@ -647,11 +655,21 @@ em {
   border-bottom: 1px solid var(--line);
   padding: 48px 0;
 }
-.timeline-item:nth-child(1) { --accent-1: #58c7f5; }
-.timeline-item:nth-child(2) { --accent-1: #39d7c3; }
-.timeline-item:nth-child(3) { --accent-1: #a894ef; }
-.timeline-item:nth-child(4) { --accent-1: #ffb75e; }
-.timeline-item:nth-child(5) { --accent-1: #f28fb2; }
+.timeline-item:nth-child(1) {
+  --accent-1: #58c7f5;
+}
+.timeline-item:nth-child(2) {
+  --accent-1: #39d7c3;
+}
+.timeline-item:nth-child(3) {
+  --accent-1: #a894ef;
+}
+.timeline-item:nth-child(4) {
+  --accent-1: #ffb75e;
+}
+.timeline-item:nth-child(5) {
+  --accent-1: #f28fb2;
+}
 .timeline-index {
   font: var(--fs-sm) var(--font-mono);
   color: var(--accent-1);
@@ -960,6 +978,7 @@ em {
     ),
     #070b10;
   overflow: hidden;
+  user-select: none;
 }
 .hero-dark:before {
   content: "";
@@ -977,6 +996,15 @@ em {
 .hero-dark > * {
   position: relative;
   z-index: 1;
+}
+.hero-dark > .hero-topo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.9;
 }
 .hero-dark .kicker {
   color: #9ba7b5;
@@ -1057,5 +1085,26 @@ em {
   }
   .hero-socials {
     gap: 20px;
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s ease,
+    transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
